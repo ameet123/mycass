@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="3589" started-at="2015-04-24T18:07:32Z" finished-at="2015-04-24T18:07:36Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="3589" started-at="2015-04-24T18:07:32Z" finished-at="2015-04-24T18:07:36Z">
+      <class name="org.ameet.nosql.dao.EmpDaoTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:org.ameet.nosql.dao.EmpDaoTest@101df177]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="9" started-at="2015-04-24T14:07:32Z" finished-at="2015-04-24T14:07:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:org.ameet.nosql.dao.EmpDaoTest@101df177]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3369" started-at="2015-04-24T14:07:32Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-04-24T14:07:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:org.ameet.nosql.dao.EmpDaoTest@101df177]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-04-24T14:07:35Z" finished-at="2015-04-24T14:07:35Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void org.ameet.nosql.dao.EmpDaoTest.testSave()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testSave()[pri:0, instance:org.ameet.nosql.dao.EmpDaoTest@101df177]" name="testSave" duration-ms="198" started-at="2015-04-24T14:07:35Z" finished-at="2015-04-24T14:07:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSave -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:org.ameet.nosql.dao.EmpDaoTest@101df177]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-04-24T14:07:36Z" finished-at="2015-04-24T14:07:36Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void org.ameet.nosql.dao.EmpDaoTest.testSave()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:org.ameet.nosql.dao.EmpDaoTest@101df177]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2015-04-24T14:07:36Z" finished-at="2015-04-24T14:07:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- org.ameet.nosql.dao.EmpDaoTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

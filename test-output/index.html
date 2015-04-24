@@ -90,7 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">3 methods,   3 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -99,6 +99,16 @@
                       <a href="#" panel-name="suite-Default_suite" class="show-methods passed suite-Default_suite"> (show)</a> <!-- show-methods passed suite-Default_suite -->
                     </span>
                     <div class="method-list-content passed suite-Default_suite">
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="org.ameet.nosql.dao.EmpDaoTest" hash-for-method="testCountOperation">testCountOperation</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="org.ameet.nosql.dao.EmpDaoTest" hash-for-method="testInsertEntityOperation">testInsertEntityOperation</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="org.ameet.nosql.dao.EmpDaoTest" hash-for-method="testSave">testSave</a> <!-- method navigator-link -->
@@ -124,6 +134,20 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
+                  <a name="testCountOperation">
+                  </a> <!-- testCountOperation -->
+                  <span class="method-name">testCountOperation</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testInsertEntityOperation">
+                  </a> <!-- testInsertEntityOperation -->
+                  <span class="method-name">testInsertEntityOperation</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
                   <a name="testSave">
                   </a> <!-- testSave -->
                   <span class="method-name">testSave</span>
@@ -134,7 +158,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/tmp/testng-eclipse-2032231532/testng-customsuite.xml</span>
+            <span class="header-content">/tmp/testng-eclipse-1376412116/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -183,16 +207,24 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'testSave')
+data.setCell(0, 1, 'testCountOperation')
 data.setCell(0, 2, 'org.ameet.nosql.dao.EmpDaoTest')
-data.setCell(0, 3, 198);
+data.setCell(0, 3, 45);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'testInsertEntityOperation')
+data.setCell(1, 2, 'org.ameet.nosql.dao.EmpDaoTest')
+data.setCell(1, 3, 20);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'testSave')
+data.setCell(2, 2, 'org.ameet.nosql.dao.EmpDaoTest')
+data.setCell(2, 3, 11);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 198 ms</span>
+              <span class="suite-total-time">Total running time: 76 ms</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -228,20 +260,44 @@ return data;
                 <span class="method-start">9 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
+                <span class="method-name">springTestContextBeforeTestMethod(public void org.ameet.nosql.dao.EmpDaoTest.testCountOperation())</span>
+                <span class="method-start">2830 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testCountOperation</span>
+                <span class="method-start">2831 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">springTestContextAfterTestMethod(public void org.ameet.nosql.dao.EmpDaoTest.testCountOperation())</span>
+                <span class="method-start">2877 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">springTestContextBeforeTestMethod(public void org.ameet.nosql.dao.EmpDaoTest.testInsertEntityOperation())</span>
+                <span class="method-start">2884 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testInsertEntityOperation</span>
+                <span class="method-start">2884 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">springTestContextAfterTestMethod(public void org.ameet.nosql.dao.EmpDaoTest.testInsertEntityOperation())</span>
+                <span class="method-start">2905 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
                 <span class="method-name">springTestContextBeforeTestMethod(public void org.ameet.nosql.dao.EmpDaoTest.testSave())</span>
-                <span class="method-start">3380 ms</span>
+                <span class="method-start">2905 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">testSave</span>
-                <span class="method-start">3381 ms</span>
+                <span class="method-start">2906 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">springTestContextAfterTestMethod(public void org.ameet.nosql.dao.EmpDaoTest.testSave())</span>
-                <span class="method-start">3580 ms</span>
+                <span class="method-start">2917 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">springTestContextAfterTestClass</span>
-                <span class="method-start">3581 ms</span>
+                <span class="method-start">2918 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

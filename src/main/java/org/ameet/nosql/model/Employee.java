@@ -7,6 +7,14 @@ import org.springframework.data.cassandra.mapping.Table;
 @Table(value="employee_table")
 public class Employee {
 	
+	public Employee(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	public Employee() {
+		
+	}
+	
 	@PrimaryKey
 	private int id;
 	

@@ -26,6 +26,16 @@ public class EmpDaoTest extends AbstractTestNGSpringContextTests {
 		e.setId(1);
 		e.setName("Ameet");
 		dao.save(e);
+		
+	}
+	@Test
+	public void testCountOperation() {
+		long cnt = cassandraOperations.count("employee_table");
+		System.out.println("Records in emp table:"+cnt);
+	}
+	@Test
+	public void testInsertEntityOperation() {
+		cassandraOperations.insert(new Employee(2, "pope"));
 		long cnt = cassandraOperations.count("employee_table");
 		System.out.println("Records in emp table:"+cnt);
 	}

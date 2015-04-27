@@ -3,6 +3,7 @@ package org.ameet.nosql.dao;
 import org.ameet.nosql.Application;
 import org.ameet.nosql.model.Employee;
 import org.ameet.nosql.repository.EmpRepository;
+import org.ameet.nosql.verification.PreProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,8 +20,10 @@ public class EmpDaoTest extends AbstractTestNGSpringContextTests {
 	private EmpRepository repo;
 	@Autowired
 	private CassandraOperations cassandraOperations;
+	@Autowired
+	private PreProcessor pre;
 	
-	@Test
+//	@Test
 	public void testSave() {
 		Employee e = new Employee();
 		e.setId(1);
@@ -28,15 +31,19 @@ public class EmpDaoTest extends AbstractTestNGSpringContextTests {
 		dao.save(e);
 		
 	}
-	@Test
+//	@Test
 	public void testCountOperation() {
 		long cnt = cassandraOperations.count("employee_table");
 		System.out.println("Records in emp table:"+cnt);
 	}
-	@Test
+//	@Test
 	public void testInsertEntityOperation() {
 		cassandraOperations.insert(new Employee(2, "pope"));
 		long cnt = cassandraOperations.count("employee_table");
 		System.out.println("Records in emp table:"+cnt);
+	}
+	@Test
+	public void testSelect() {
+		pre.checkExistence();
 	}
 }

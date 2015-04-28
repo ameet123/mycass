@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.ameet.nosql.apimodel.RTSModel;
+import org.ameet.nosql.exception.ParseCode1000;
+import org.ameet.nosql.exception.RTSException;
 import org.ameet.nosql.services.GsonCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +36,7 @@ public class RTSParser {
 		try {
 			s = Files.toString(rtsFile, Charset.defaultCharset());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RTSException(ParseCode1000.FILE_TO_STRING_ERROR);
 		}
 		// now try to parse it into model
 		RTSModel rts = gson.get().fromJson(s, RTSModel.class);

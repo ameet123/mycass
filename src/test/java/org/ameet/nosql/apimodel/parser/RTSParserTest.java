@@ -29,9 +29,12 @@ public class RTSParserTest extends AbstractTestNGSpringContextTests {
 	@Autowired
 	private RTSParser parser;
 
+	
+	
 	@Test
 	public void testFilePickup() {
-		RTSModel rts = parser.parse();
+		
+		RTSModel rts = parser.parse(Utility.pickupTemplateWellJsonFile());
 		Header hdr = rts.getRtsMessage().getHeader();
 		LOGGER.info("corr ID:{} params:{}", hdr.getCorrelationId(), hdr.getParameters());
 		WellModel w = rts.getRtsMessage().getBody().getWell();

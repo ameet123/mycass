@@ -25,13 +25,11 @@ import com.google.common.io.Files;
 public class RTSParser {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RTSParser.class);
-	private String rtsFilename = "well.json";
+	
 	@Autowired
 	private GsonCreator gson;
 	
-	public RTSModel parse() {
-		File rtsFile = new File(this.getClass().getClassLoader().getResource(rtsFilename).getFile());
-		LOGGER.info("Well JSON file picked up successfully from classpath");
+	public RTSModel parse(File rtsFile) {
 		String s = null;
 		try {
 			s = Files.toString(rtsFile, Charset.defaultCharset());
@@ -40,6 +38,7 @@ public class RTSParser {
 		}
 		// now try to parse it into model
 		RTSModel rts = gson.get().fromJson(s, RTSModel.class);
+		LOGGER.info("rts model parsed:{}", rts.getRtsMessage().hashCode());
 		return rts;
 	}
 }

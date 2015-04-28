@@ -1,0 +1,104 @@
+{
+    "rtsMessage": {
+        "header": {
+            "correlationId": "c0dbd7b1-d030-42b8-85fa-297965cc32cd",
+            "objectKlass": "com.halliburton.domain.well",
+            "operation": "Add",
+            "parameters": {}
+        },
+        "body": {
+            "well": {
+                "name": "FS Range GU 1H ST01",
+                "nameLegal": "FS Range GU 1H ST01",
+                "numGovt": "",
+                "field": "Newark East",
+                "country": "USA",
+                "state": "Texas",
+                "county": "Wise",
+                "block": "",
+                "timeZone": "-05:00",
+                "operator": "Devon Energy",
+                "numAPI": "42-497-37661",
+                "dTimSpud": "2013-05-02T11:00:00.000Z",
+                "wellDatum": [
+                    {
+                        "name": "Ground Level",
+                        "code": 3,
+                        "elevation": {
+                            "uom": "ft",
+                            "datum": "SL",
+                            "Value": 948
+                        },
+                        "uid": "GL"
+                    },
+                    {
+                        "name": "Derrick Floor",
+                        "code": 2,
+                        "elevation": {
+                            "uom": "ft",
+                            "datum": "SL",
+                            "Value": 948
+                        },
+                        "uid": "DF"
+                    },
+                    {
+                        "name": "Sea Level",
+                        "code": 9,
+                        "uid": "SL"
+                    }
+                ],
+                "groundElevation": {
+                    "uom": "ft",
+                    "datum": "SL",
+                    "Value": 948
+                },
+                "waterDepth": {
+                    "uom": "ft"
+                },
+                "wellLocation": [
+                    {
+                        "latitude": {
+                            "uom": "dega",
+                            "Value": 33.331241667005756
+                        },
+                        "longitude": {
+                            "uom": "dega",
+                            "Value": -97.5674805555741
+                        },
+                        "uid": "0"
+                    },
+                    {
+                        "easting": {
+                            "uom": "ft",
+                            "Value": 2253304.79
+                        },
+                        "northing": {
+                            "uom": "ft",
+                            "Value": 7169524.98
+                        },
+                        "uid": "1"
+                    },
+                    {
+                        "localX": {
+                            "uom": "ft",
+                            "Value": 2253304.79
+                        },
+                        "localY": {
+                            "uom": "ft",
+                            "Value": 7169524.98
+                        },
+                        "uid": "2"
+                    }
+                ],
+                "commonData": {
+                    "dTimLastChange": "2015-04-21T09:15:01.141Z",
+                    "defaultDatum": {
+                        "UidRef": "DF",
+                        "Value": "Derrick Floor"
+                    }
+                },
+                "uid": "676a12e0-b24e-5d51-eb13-d4824a4d9c58"
+            }
+        }
+    }
+}

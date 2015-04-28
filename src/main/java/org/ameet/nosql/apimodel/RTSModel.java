@@ -3,6 +3,8 @@ package org.ameet.nosql.apimodel;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Strings;
+
 public class RTSModel {
 
 	private RTSMessage rtsMessage;
@@ -15,6 +17,15 @@ public class RTSModel {
 	}
 	public static class RTSMessage {
 		private Header header;
+		private Body body;
+
+		public Body getBody() {
+			return body;
+		}
+
+		public void setBody(Body body) {
+			this.body = body;
+		}
 
 		public Header getHeader() {
 			return header;
@@ -100,6 +111,9 @@ public class RTSModel {
 			this.nameLegal = nameLegal;
 		}
 		public String getNumGovt() {
+			if (Strings.isNullOrEmpty(numGovt)) {
+				numGovt = "";
+			}
 			return numGovt;
 		}
 		public void setNumGovt(String numGovt) {
@@ -148,6 +162,9 @@ public class RTSModel {
 			this.operator = operator;
 		}
 		public String getNumAPI() {
+			if (Strings.isNullOrEmpty(numAPI)) {
+				numAPI = "";
+			}
 			return numAPI;
 		}
 		public void setNumAPI(String numAPI) {
@@ -220,6 +237,9 @@ public class RTSModel {
 			this.uid = uid;
 		}
 		public Elevation getElevation() {
+			if (elevation == null) {
+				elevation = new Elevation();
+			}
 			return elevation;
 		}
 		public void setElevation(Elevation elevation) {
@@ -298,36 +318,54 @@ public class RTSModel {
 			this.uid = uid;
 		}
 		public Latitude getLatitude() {
+			if (latitude == null) {
+				latitude = new Latitude();
+			}
 			return latitude;
 		}
 		public void setLatitude(Latitude latitude) {
 			this.latitude = latitude;
 		}
 		public Longitude getLongitude() {
+			if (longitude == null) {
+				longitude = new Longitude();
+			}
 			return longitude;
 		}
 		public void setLongitude(Longitude longitude) {
 			this.longitude = longitude;
 		}
 		public Easting getEasting() {
+			if (easting == null) {
+				easting = new Easting();
+			}
 			return easting;
 		}
 		public void setEasting(Easting easting) {
 			this.easting = easting;
 		}
 		public Northing getNorthing() {
+			if (northing == null) {
+				northing = new Northing();
+			}
 			return northing;
 		}
 		public void setNorthing(Northing northing) {
 			this.northing = northing;
 		}
 		public LocalX getLocalX() {
+			if (localX == null) {
+				localX = new LocalX();
+			}
 			return localX;
 		}
 		public void setLocalX(LocalX localX) {
 			this.localX = localX;
 		}
 		public LocalY getLocalY() {
+			if (localY == null) {
+				localY = new LocalY();
+			}
 			return localY;
 		}
 		public void setLocalY(LocalY localY) {
@@ -440,6 +478,9 @@ public class RTSModel {
 			this.dTimLastChange = dTimLastChange;
 		}
 		public DefaultDatum getDefaultDatum() {
+			if (defaultDatum == null) {
+				defaultDatum = new DefaultDatum();
+			}
 			return defaultDatum;
 		}
 		public void setDefaultDatum(DefaultDatum defaultDatum) {

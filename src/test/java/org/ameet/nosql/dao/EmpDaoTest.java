@@ -5,6 +5,7 @@ import org.ameet.nosql.model.Employee;
 import org.ameet.nosql.repository.EmpRepository;
 import org.ameet.nosql.verification.PreProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -15,6 +16,8 @@ public class EmpDaoTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
 	private EmpDao dao;
+	@Value("${my.table}")
+	private String table;
 	
 	@Autowired
 	private EmpRepository repo;
@@ -44,6 +47,6 @@ public class EmpDaoTest extends AbstractTestNGSpringContextTests {
 	}
 	@Test
 	public void testSelect() {
-		pre.checkExistence();
+		pre.checkExistence(table);
 	}
 }

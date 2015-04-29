@@ -2,9 +2,14 @@ package org.ameet.nosql.apimodel.parser;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.ameet.nosql.apimodel.RTSModel;
+import org.ameet.nosql.exception.ParseCode1000;
+import org.ameet.nosql.exception.RTSException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +33,11 @@ public class LeafExpander {
 	private RTSParser parser;
 
 	public void transform(RTSModel rts) throws IllegalArgumentException, IllegalAccessException {
-		transform(RTSModel.class, rts, "/");
+		Map<String, Object> kvMap = new HashMap<String, Object>();
+		transform(RTSModel.class, rts, "/", kvMap);
+		for (Entry<String, Object> e : kvMap.entrySet()) {
+			LOGGER.info("Key==>" + Strings.padEnd(e.getKey(), 80, ' ') + " Value==>" + e.getValue());
+		}
 	}
 
 	/**
@@ -40,43 +49,59 @@ public class LeafExpander {
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 */
-	public void transform(Class<?> klzz, Object o, String parentVal) throws IllegalArgumentException,
-			IllegalAccessException {
+	public void transform(Class<?> klzz, Object o, String parentVal, Map<String, Object> kvMap) {
 		String uidAppliedParent = applyUid(parentVal, klzz, o);
 
 		for (Field f : klzz.getDeclaredFields()) {
 			makeAccessible(f);
-
 			String modParent = chainParentValue(f, uidAppliedParent);
+			Object fieldValue = getFieldValue(f, o);
 
 			if (!f.getType().isPrimitive() && !f.getType().getName().contains("String")) {
-
 				if (f.getType().getName().contains("List")) {
-					List<?> mylist = (List<?>) f.get(o);
+					List<?> mylist = (List<?>) fieldValue;
 					LOGGER.debug(">>> size of datum list:" + mylist.size());
 					for (Object o1 : mylist) {
-						transform(getParamterizedListClass(f), o1, modParent);
+						transform(getParamterizedListClass(f), o1, modParent, kvMap);
 					}
 				}
-				transform(f.getType(), f.get(o), modParent);
+				transform(f.getType(), fieldValue, modParent, kvMap);
 			} else {
 				if (isPrintableValue(o, f)) {
-					LOGGER.debug("name:{} Type:{} ParentClass:{} Value=>{} PARENT_VAL=>{}", f.getName(), f.getType()
-							.getCanonicalName(), f.getDeclaringClass().getCanonicalName(), f.get(o), modParent);
-					System.out.println("Key==>" + Strings.padEnd(modParent, 80, ' ') + " Value==>" + f.get(o));
+					LOGGER.debug(">>> name:{} Type:{} ParentClass:{} Value=>{} PARENT_VAL=>{}", f.getName(), f
+							.getType().getCanonicalName(), f.getDeclaringClass().getCanonicalName(), fieldValue,
+							modParent);
+					// add to final kv map
+					kvMap.put(modParent, fieldValue);
 				}
 			}
 		}
 	}
 
-	public String chainParentValue(Field f, String uidAppliedParent) {
+	private Object getFieldValue(Field f, Object o) {
+		if (o == null) {
+			return null;
+		}
+		try {
+			return f.get(o);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			throw new RTSException(ParseCode1000.JSON_MODEL_FIELD_VALUE_GET).set("field", f.getName());
+		}
+	}
 
+	/**
+	 * if this is a valid field then append the field name
+	 * 
+	 * @param f
+	 * @param uidAppliedParent
+	 * @return
+	 */
+	private String chainParentValue(Field f, String uidAppliedParent) {
 		if (isValidField(f)) {
 			StringBuilder sb = new StringBuilder(uidAppliedParent);
 			sb.append("/");
 			sb.append(f.getName());
 			return sb.toString();
-			// modParent = modParent + "/" + f.getName();
 		}
 		return uidAppliedParent;
 	}

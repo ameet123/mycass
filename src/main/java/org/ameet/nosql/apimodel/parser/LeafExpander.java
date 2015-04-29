@@ -25,13 +25,17 @@ import org.springframework.stereotype.Component;
 public class LeafExpander {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LeafExpander.class);
-
+	private static final String DELIMITER = "/";
+	private static final String UID_DELIM = "@";
+	private static final String UID_KEY = "uid";
+	private static final String ROOT_NODE = "WellModel";
+	
 	@Autowired
 	private RTSParser parser;
 
 	public Map<String, Object> flatten(RTSModel rts) {
 		Map<String, Object> kvMap = new HashMap<String, Object>();
-		transform(RTSModel.class, rts, "/", kvMap);		
+		transform(RTSModel.class, rts, DELIMITER, kvMap);		
 		return kvMap;
 	}
 
@@ -94,7 +98,7 @@ public class LeafExpander {
 	private String chainParentValue(Field f, String uidAppliedParent) {
 		if (isValidField(f)) {
 			StringBuilder sb = new StringBuilder(uidAppliedParent);
-			sb.append("/");
+			sb.append(DELIMITER);
 			sb.append(f.getName());
 			return sb.toString();
 		}
@@ -129,8 +133,8 @@ public class LeafExpander {
 	}
 
 	private boolean isValidField(Field f) {
-		if (f.getType().getCanonicalName().contains("WellModel")
-				|| f.getDeclaringClass().getCanonicalName().contains("WellModel")) {
+		if (f.getType().getCanonicalName().contains(ROOT_NODE)
+				|| f.getDeclaringClass().getCanonicalName().contains(ROOT_NODE)) {
 			return true;
 		} else {
 			return false;
@@ -138,8 +142,8 @@ public class LeafExpander {
 	}
 
 	private boolean isPrintableValue(Object o, Field f) {
-		if (o == null || f.getName().equalsIgnoreCase("uid")
-				|| !f.getDeclaringClass().getCanonicalName().contains("WellModel")) {
+		if (o == null || f.getName().equalsIgnoreCase(UID_KEY)
+				|| !f.getDeclaringClass().getCanonicalName().contains(ROOT_NODE)) {
 			return false;
 		} else {
 			return true;
@@ -149,9 +153,9 @@ public class LeafExpander {
 	private String getUid(Class<?> klzz, Object o) {
 		for (Field f : klzz.getDeclaredFields()) {
 			makeAccessible(f);
-			if (f.getName().equals("uid")) {
+			if (f.getName().equals(UID_KEY)) {
 				try {
-					return "@" + (String) f.get(o);
+					return new StringBuilder(UID_DELIM).append( (String) f.get(o) ).toString();
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}

@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Strings;
+
 /**
  * take the RTS model and expand it at the leaf level so we can use that for
  * inserting into object leaf
@@ -28,18 +30,24 @@ public class LeafExpander {
 	public void transform(RTSModel rts) throws IllegalArgumentException, IllegalAccessException {
 		transform(RTSModel.class, rts, "/");
 	}
-	
+
+	/**
+	 * a recursive function to take the RTS object and flatten it
+	 * 
+	 * @param klzz
+	 * @param o
+	 * @param parentVal
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
 	public void transform(Class<?> klzz, Object o, String parentVal) throws IllegalArgumentException,
 			IllegalAccessException {
-		String uidAppliedParent = parentVal + getUid(klzz, o);
+		String uidAppliedParent = applyUid(parentVal, klzz, o);
 
 		for (Field f : klzz.getDeclaredFields()) {
 			makeAccessible(f);
-			
-			String modParent = uidAppliedParent;
-			if (isValidField(f)) {
-				modParent = modParent + "/" + f.getName();
-			}
+
+			String modParent = chainParentValue(f, uidAppliedParent);
 
 			if (!f.getType().isPrimitive() && !f.getType().getName().contains("String")) {
 
@@ -53,15 +61,43 @@ public class LeafExpander {
 				transform(f.getType(), f.get(o), modParent);
 			} else {
 				if (isPrintableValue(o, f)) {
-					System.out.println("name:" + f.getName() + " Type:" + f.getType().getCanonicalName() + " Parent: "
-							+ f.getDeclaringClass().getCanonicalName() + " Value=>" + f.get(o) + " PARENTVAL==>"
-							+ modParent);
+					LOGGER.debug("name:{} Type:{} ParentClass:{} Value=>{} PARENT_VAL=>{}", f.getName(), f.getType()
+							.getCanonicalName(), f.getDeclaringClass().getCanonicalName(), f.get(o), modParent);
+					System.out.println("Key==>" + Strings.padEnd(modParent, 80, ' ') + " Value==>" + f.get(o));
 				}
 			}
 		}
 	}
+
+	public String chainParentValue(Field f, String uidAppliedParent) {
+
+		if (isValidField(f)) {
+			StringBuilder sb = new StringBuilder(uidAppliedParent);
+			sb.append("/");
+			sb.append(f.getName());
+			return sb.toString();
+			// modParent = modParent + "/" + f.getName();
+		}
+		return uidAppliedParent;
+	}
+
+	/**
+	 * apply UID if found and append that to the parentvalue
+	 * 
+	 * @param s
+	 * @param klzz
+	 * @param o
+	 * @return
+	 */
+	private String applyUid(String s, Class<?> klzz, Object o) {
+		StringBuilder sb = new StringBuilder(s);
+		sb.append(getUid(klzz, o));
+		return sb.toString();
+	}
+
 	/**
 	 * from a List<> field, get the parameterized type
+	 * 
 	 * @param f
 	 * @return
 	 */
@@ -71,13 +107,16 @@ public class LeafExpander {
 		LOGGER.debug(">>> Field name:{} of type List, the parameterized type:{}", f.getName(), paramClass);
 		return paramClass;
 	}
+
 	private boolean isValidField(Field f) {
-		if (f.getType().getCanonicalName().contains("WellModel") || f.getDeclaringClass().getCanonicalName().contains("WellModel")) {
+		if (f.getType().getCanonicalName().contains("WellModel")
+				|| f.getDeclaringClass().getCanonicalName().contains("WellModel")) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 	private boolean isPrintableValue(Object o, Field f) {
 		if (o == null || f.getName().equalsIgnoreCase("uid")
 				|| !f.getDeclaringClass().getCanonicalName().contains("WellModel")) {
@@ -87,18 +126,19 @@ public class LeafExpander {
 		}
 	}
 
-	private String getUid(Class<?> klzz, Object o) throws IllegalArgumentException, IllegalAccessException {
+	private String getUid(Class<?> klzz, Object o) {
 		for (Field f : klzz.getDeclaredFields()) {
 			makeAccessible(f);
 			if (f.getName().equals("uid")) {
-				return "@" + (String) f.get(o);
-
+				try {
+					return "@" + (String) f.get(o);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return "";
 	}
-
-	
 
 	private void makeAccessible(Field f) {
 		if (!f.isAccessible()) {

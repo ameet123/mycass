@@ -5,7 +5,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.ameet.nosql.apimodel.RTSModel;
 import org.ameet.nosql.exception.ParseCode1000;
@@ -14,8 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.google.common.base.Strings;
 
 /**
  * take the RTS model and expand it at the leaf level so we can use that for
@@ -32,12 +29,10 @@ public class LeafExpander {
 	@Autowired
 	private RTSParser parser;
 
-	public void transform(RTSModel rts) throws IllegalArgumentException, IllegalAccessException {
+	public Map<String, Object> flatten(RTSModel rts) {
 		Map<String, Object> kvMap = new HashMap<String, Object>();
-		transform(RTSModel.class, rts, "/", kvMap);
-		for (Entry<String, Object> e : kvMap.entrySet()) {
-			LOGGER.info("Key==>" + Strings.padEnd(e.getKey(), 80, ' ') + " Value==>" + e.getValue());
-		}
+		transform(RTSModel.class, rts, "/", kvMap);		
+		return kvMap;
 	}
 
 	/**

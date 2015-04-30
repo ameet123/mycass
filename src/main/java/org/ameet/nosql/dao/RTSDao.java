@@ -1,6 +1,7 @@
 package org.ameet.nosql.dao;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.ameet.nosql.apimodel.RTSModel;
@@ -12,6 +13,8 @@ import org.ameet.nosql.model.keys.WellKey;
 import org.ameet.nosql.repository.ObjectLeafRepository;
 import org.ameet.nosql.repository.WellRepository;
 import org.ameet.nosql.util.Utility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,9 @@ import com.google.common.base.Strings;
 
 @Component
 public class RTSDao {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RTSDao.class);
+	
 	private final String WELL_KEY = "well";
 
 	@Autowired
@@ -33,6 +39,14 @@ public class RTSDao {
 
 	public ObjectLeaf saveObjectLeaf(ObjectLeaf ol) {
 		validateObjectLeaf(ol);
+		return objectLeafRepo.save(ol);
+	}
+	
+	public Iterable<ObjectLeaf> saveObjectLeaf(List<ObjectLeaf> ol) {
+		if (ol == null || ol.size() == 0) {
+			LOGGER.debug("The incoming list is empty or of size 0");
+			return null;
+		}
 		return objectLeafRepo.save(ol);
 	}
 

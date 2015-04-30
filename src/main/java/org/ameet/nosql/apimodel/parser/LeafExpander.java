@@ -33,8 +33,8 @@ public class LeafExpander {
 	@Autowired
 	private RTSParser parser;
 
-	public Map<String, Object> flatten(RTSModel rts) {
-		Map<String, Object> kvMap = new HashMap<String, Object>();
+	public Map<String, String> flatten(RTSModel rts) {
+		Map<String, String> kvMap = new HashMap<String, String>();
 		transform(RTSModel.class, rts, DELIMITER, kvMap);		
 		return kvMap;
 	}
@@ -48,7 +48,7 @@ public class LeafExpander {
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 */
-	public void transform(Class<?> klzz, Object o, String parentVal, Map<String, Object> kvMap) {
+	public void transform(Class<?> klzz, Object o, String parentVal, Map<String, String> kvMap) {
 		String uidAppliedParent = applyUid(parentVal, klzz, o);
 
 		for (Field f : klzz.getDeclaredFields()) {

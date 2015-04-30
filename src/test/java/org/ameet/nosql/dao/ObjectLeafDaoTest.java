@@ -38,9 +38,9 @@ public class ObjectLeafDaoTest extends AbstractTestNGSpringContextTests {
 	@Test
 	public void testSave() {
 		RTSModel rts = parser.parse(Utility.pickupTemplateWellJsonFile());
-		Map<String, String> kvMap = expander.flatten(rts);
+		Map<String, Object> kvMap = expander.flatten(rts);
 		List<ObjectLeaf> leaves = new ArrayList<ObjectLeaf>();
-		for (Entry<String, String> e : kvMap.entrySet()) {
+		for (Entry<String, Object> e : kvMap.entrySet()) {
 			UUID wellid = UUID.fromString(rts.getRtsMessage().getBody().getWell().getUid());
 			ObjectLeafKey pk = new ObjectLeafKey();
 			pk.setLeaf(e.getKey());
@@ -49,7 +49,7 @@ public class ObjectLeafDaoTest extends AbstractTestNGSpringContextTests {
 			ObjectLeaf ol = new ObjectLeaf();
 			ol.setPk(pk);
 			ol.setObjectKlass(rts.getRtsMessage().getHeader().getObjectKlass());
-			ol.setValue(e.getValue());
+			ol.setValue(e.getValue().toString());
 			ol.setWellId(wellid);
 			leaves.add(ol);
 		}

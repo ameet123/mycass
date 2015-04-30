@@ -23,10 +23,10 @@ public class BeanPropertyTester extends AbstractTestNGSpringContextTests {
 	@Test
 	public void testBeanDescribe() {
 		RTSModel rts = parser.parse(Utility.pickupTemplateWellJsonFile());
-		Map<String, String> kvMap = expander.flatten(rts);
+		Map<String, Object> kvMap = expander.flatten(rts);
 
-		for (Entry<String, String> e : kvMap.entrySet()) {
-			System.out.println("Key==>" + Strings.padEnd(e.getKey(), 80, ' ') + " Value==>" + e.getValue());
+		for (Entry<String, Object> e : kvMap.entrySet()) {
+			System.out.println("Key==>" + Strings.padEnd(e.getKey(), 80, ' ') + " Value==>" + Strings.padEnd(e.getValue().toString(), 30,' ')+" Type==>"+e.getValue().getClass());
 		}
 	}
 }

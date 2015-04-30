@@ -6,8 +6,10 @@ import java.util.UUID;
 import org.ameet.nosql.apimodel.RTSModel;
 import org.ameet.nosql.exception.Metadata1100;
 import org.ameet.nosql.exception.RTSException;
+import org.ameet.nosql.model.ObjectLeaf;
 import org.ameet.nosql.model.Well;
 import org.ameet.nosql.model.keys.WellKey;
+import org.ameet.nosql.repository.ObjectLeafRepository;
 import org.ameet.nosql.repository.WellRepository;
 import org.ameet.nosql.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +20,30 @@ import com.google.common.base.Strings;
 @Component
 public class RTSDao {
 	private final String WELL_KEY = "well";
-	
+
 	@Autowired
 	private WellRepository repo;
-	
+	@Autowired
+	private ObjectLeafRepository objectLeafRepo;
+
 	public Well save(Well w) {
 		validateWell(w);
 		return repo.save(w);
 	}
-	
+
+	public ObjectLeaf saveObjectLeaf(ObjectLeaf ol) {
+		validateObjectLeaf(ol);
+		return objectLeafRepo.save(ol);
+	}
+
 	public Well findOne(WellKey pk) {
 		validateWell(pk);
 		return repo.findOne(pk);
 	}
+
 	/**
-	 * based on the model generate the well object
-	 * and stuff it into cassandra
+	 * based on the model generate the well object and stuff it into cassandra
+	 * 
 	 * @param rts
 	 */
 	public void ingestWell(RTSModel rts) {
@@ -57,12 +67,21 @@ public class RTSDao {
 		// now do the insert into cassandra
 		save(w);
 	}
+
 	private void validateWell(Well w) {
 		validateWell(w.getPk());
 	}
+
 	private void validateWell(WellKey pk) {
 		if (pk == null || Strings.isNullOrEmpty(pk.getRowKey()) || pk.getWellid() == null) {
 			throw new RTSException(Metadata1100.ILLEGAL_WELL_PK);
+		}
+	}
+
+	private void validateObjectLeaf(ObjectLeaf ol) {
+		if (ol.getPk() == null || Strings.isNullOrEmpty(ol.getPk().getLeaf())
+				|| Strings.isNullOrEmpty(ol.getPk().getSize()) || ol.getPk().getObjectId() == null) {
+			throw new RTSException(Metadata1100.ILLEGAL_OBJECT_LEAF_PK);
 		}
 	}
 }

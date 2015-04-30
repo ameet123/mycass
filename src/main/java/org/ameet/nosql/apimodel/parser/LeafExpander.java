@@ -71,7 +71,7 @@ public class LeafExpander {
 							.getType().getCanonicalName(), f.getDeclaringClass().getCanonicalName(), fieldValue,
 							modParent);
 					// add to final kv map
-					kvMap.put(modParent, fieldValue);
+					kvMap.put(modParent, fieldValue.toString());
 				}
 			}
 		}

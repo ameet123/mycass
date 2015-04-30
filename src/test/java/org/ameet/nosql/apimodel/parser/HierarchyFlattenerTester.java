@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import com.google.common.base.Strings;
 
 @ContextConfiguration(classes = { Application.class })
-public class BeanPropertyTester extends AbstractTestNGSpringContextTests {
+public class HierarchyFlattenerTester extends AbstractTestNGSpringContextTests {
 	@Autowired
 	private RTSParser parser;
 	@Autowired
@@ -26,7 +26,8 @@ public class BeanPropertyTester extends AbstractTestNGSpringContextTests {
 		Map<String, Object> kvMap = expander.flatten(rts);
 
 		for (Entry<String, Object> e : kvMap.entrySet()) {
-			System.out.println("Key==>" + Strings.padEnd(e.getKey(), 80, ' ') + " Value==>" + Strings.padEnd(e.getValue().toString(), 30,' ')+" Type==>"+e.getValue().getClass());
+			System.out.println("Key==>" + Strings.padEnd(e.getKey(), 80, ' ') + " Value==>"
+					+ Strings.padEnd(e.getValue().toString(), 30, ' ') + " Type==>" + e.getValue().getClass());
 		}
 	}
 }

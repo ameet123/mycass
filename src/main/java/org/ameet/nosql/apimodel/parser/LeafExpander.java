@@ -94,7 +94,11 @@ public class LeafExpander {
 			}
 		}
 	}
-
+	/**
+	 * try to determine the class of the field object
+	 * @param o
+	 * @return
+	 */
 	private Object getSpecificFieldClass(Object o) {		
 		if (String.class.isInstance(o)) {
 			// try to check timestamp

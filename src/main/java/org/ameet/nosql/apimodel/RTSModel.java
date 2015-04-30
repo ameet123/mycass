@@ -1,7 +1,11 @@
 package org.ameet.nosql.apimodel;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import org.ameet.nosql.util.Utility;
 
 import com.google.common.base.Strings;
 
@@ -632,4 +636,11 @@ public class RTSModel {
 		}
 	}
 
+	// Convenience methods
+	public UUID getWellId() {
+		return UUID.fromString(this.getRtsMessage().getBody().getWell().getUid());
+	}
+	public Date getTimLastChange() {
+		return Utility.convertUtcToDate(this.getRtsMessage().getBody().getWell().getdTimSpud());
+	}
 }

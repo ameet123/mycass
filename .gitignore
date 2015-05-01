@@ -1,3 +1,5 @@
 /test-output/
 /logs/
 /target/
+/.settings
+.project

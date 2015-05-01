@@ -4,33 +4,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.2.RELEASE</version>
+		<groupId>org.ameet.rts</groupId>
+		<artifactId>rtsparent</artifactId>
+		<version>1.0.0-RELEASE</version>
 	</parent>
 
-	<groupId>org.ameet.nosql</groupId>
-	<artifactId>mycass</artifactId>
-	<version>1.0.0-RELEASE</version>
+	<groupId>org.ameet.rts.rtsparent</groupId>
+	<artifactId>rtscassandra</artifactId>
+	<name>rtscassandra</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-	</properties>
 
-	<dependencies>		
-
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.8.21</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+	<dependencies>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -39,6 +23,7 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-cassandra</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -65,7 +50,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>org.ameet.nosql.Application</mainClass>
+					<mainClass>org.ameet.rts.cassandra.Application</mainClass>
 					<layout>ZIP</layout>
 				</configuration>
 			</plugin>
